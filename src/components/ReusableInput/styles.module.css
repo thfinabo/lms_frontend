@@ -1,0 +1,10 @@
+.text_input input{
+    outline:none;
+    border: 2px solid rgba(208, 213, 221, 1);
+    border-radius: 8px;
+    padding: 10px 14px 10px 14px;
+    width: 100%;
+}
+.text_input input.icon{
+    padding-left: 35px;
+}
