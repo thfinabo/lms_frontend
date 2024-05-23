@@ -9,20 +9,40 @@ import { RiAppleFill } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import SignUpHook from '../../hooks/SignUpHook';
 import { authRequest } from '../../services/auth/auth-request';
+import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
 
 const SignUp = () => {
+    const [loading, setLoading] = useState(false)
     const {email, password, firstName, lastName, errors, handleSubmit, handleValueChange} = SignUpHook();
 
     const onSubmit = async (values) =>{
         try{
+            setLoading(true)
             const data = {
                 firstName: values.firstName,
                 lastName: values.lastName,
                 email: values.email,
                 password: values.password
             }
-            const res = await authRequest.signUp(JSON.stringify(data));
-            console.log(res)
+            const res = await authRequest.signUp(data);
+            setLoading(false);
+            if(res?.success){
+                toast.success(res?.message)
+            }else{
+                toast.error('Something went wrong')
+            }
+
+            // const res = await fetch('https://lms-backend-5t54.onrender.com/api/v1/signup',{
+            //     body:JSON.stringify(data),
+            //     method:"POST",
+            //     headers: {
+            //         Accept: "application/json",
+            //         "Content-Type": "application/json",
+            //     },
+
+            // });
+            // console.log(res)
         }catch(err){
             console.log(err?.message)
         }
@@ -30,6 +50,7 @@ const SignUp = () => {
 
   return (
     <div>
+        <ToastContainer />
         <AuthLayout>
             <div className='text-left'>
                 <p className='text-xl font-bold'>Sign Up</p>
@@ -61,7 +82,7 @@ const SignUp = () => {
                             <label className='pl-2 cursor-pointer' htmlFor='checkbox'>Remember me</label>
                         </div>
                         <div className='py-4'>
-                         <Button name="Submit" className="bg-primaryGreen text-white py-3 w-full font-semibold" type={'submit'}/>
+                         <Button name={loading ? 'Loading...' : 'Submit'} className="bg-primaryGreen text-white py-3 w-full font-semibold" type={'submit'}/>
                         </div>
                     </form>
                     <div>

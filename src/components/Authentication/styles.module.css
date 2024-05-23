@@ -20,4 +20,55 @@
     left: 50%;
     position: absolute;
     overflow: scroll;
+    overflow-x:hidden;
+}
+
+/* Admin Styles */
+.admin_container{
+    min-height: 100vh;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 20%;
+    transform: translate(-35%,-50%);
+}
+.admin_container .admin_wrapper{
+    background-image: url('/public/admin-auth-cover.png');
+    background-repeat: no-repeat;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background-position: bottom;
+
+}
+.admin_container .admin_wrapper .admin_card{
+    background-color: white;
+    min-width: 100px;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 30px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+@media screen and (max-width:1025px) {
+    .admin_container{
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+
+@media screen and (max-width:650px) {
+    .admin_container .admin_wrapper{
+        background-image:none;
+    }
+    .admin_container .admin_wrapper .admin_card{
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+    }
 }

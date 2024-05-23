@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { APIEndPoint } from "../config";
 
 export class UserAPIRequestImpl extends APIEndPoint{
@@ -9,6 +10,7 @@ export class UserAPIRequestImpl extends APIEndPoint{
             );
             return response;
         }catch(err){
+            toast.error(err?.response?.data?.message)
             console.log(err)
         }
     }

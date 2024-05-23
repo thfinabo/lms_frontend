@@ -10,11 +10,11 @@ export class APIEndPoint{
     constructor() {
       // Creates an axios instance
       this.request = axios.create({
-        withCredentials: true,
+        // withCredentials: true,
         baseURL: this.apiEndpoint,
         headers: {
           "Cache-Control": "no-cache",
-          "Access-Control-Allow-Origin": true
+          'Content-Type': 'application/json',
         }
       });
       this.request.defaults.headers.common["Content-Type"] = "application/json";
@@ -48,3 +48,7 @@ export class APIEndPoint{
 }
 
 export const BaseURL = process.env.REACT_APP_BASE_URL;
+
+export class BaseController {
+  accessToken;
+}
