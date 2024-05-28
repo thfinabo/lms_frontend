@@ -1,20 +1,52 @@
-import React from 'react'
-import AuthLayout from '../../components/Authentication/Layout'
-import TextInput from '../../components/ReusableInput/TextInput'
-import PasswordInput from '../../components/ReusableInput/PasswordInput'
-import Button from '../../components/ReusableButton/Button'
+import React, { useState } from 'react';
+import AuthLayout from '../../components/Authentication/Layout';
+import TextInput from '../../components/ReusableInput/TextInput';
+import PasswordInput from '../../components/ReusableInput/PasswordInput';
+import Button from '../../components/ReusableButton/Button';
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa6";
 import { RiAppleFill } from "react-icons/ri";
-import { HiOutlineMail } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
+import { HiOutlineMail } from 'react-icons/hi';
+import { Link, useNavigate } from 'react-router-dom';
+import LoginHook from '../../hooks/LoginHook';
+import { toast } from 'react-toastify';
+import { authRequest } from '../../services/auth/auth-request';
+import Cookies from 'js-cookie'
 
 const LoginPage = () => {
+  const {email, password, handleSubmit, handleValueChange, errors} = LoginHook();
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const onSubmit = async (values) =>{
+    try{
+      setLoading(true)
+      const data = {
+          firstName: values.firstName,
+          lastName: values.lastName,
+          email: values.email,
+          password: values.password
+      }
+      const res = await authRequest.login(data);
+      setLoading(false);
+      if(res?.success){
+        const authToken = res?.data?.authToken
+        Cookies.set('authToken',authToken,{expires: 1});
+        toast.success(res?.message);
+        navigate('/');
+      }else{
+          toast.error('Something went wrong')
+      }
+    }catch(err){
+        console.log(err?.message)
+    }
+  }
+
   return (
     <div>
       <AuthLayout>
         <div>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='text-left'>
             <div className='rounded-sm pb-5'>
               <p className='text-xl font-bold'>Login</p>
@@ -22,11 +54,12 @@ const LoginPage = () => {
             </div>
             <div className='py-2'>
               <p className='pb-1'>Email</p>
-              <TextInput name={'Email'} icon={true} value={''} placeholder={'Email'} Icon={HiOutlineMail}/>
+              <TextInput name={'Email'} icon={true} value={email} placeholder={'Email'} Icon={HiOutlineMail} onChange={(e)=> handleValueChange('email', e.target.value)}/>
+              {errors?.email && <p className='text-red-500 text-[12px]'>{errors?.email?.message}</p>}
             </div>
             <div className='py-2'>
               <p className='pb-1'>Password</p>
-              <PasswordInput name={'Password'} value={''} placeholder={'Password'}/>
+              <PasswordInput name={'Password'} value={password} placeholder={'Password'} onChange={(e)=>handleValueChange('password',e.target.value)}/>
             </div>
             <div className='flex justify-between pt-2'>
               <div>
@@ -36,7 +69,7 @@ const LoginPage = () => {
               <p>Forgot password?</p>
             </div>
             <div className='py-3 pt-8'>
-              <Button className="bg-primaryGreen text-white w-full py-3 rounded-md font-semibold" name={'Login'}/>
+              <Button type={'submit'} className="bg-primaryGreen text-white w-full py-3 rounded-md font-semibold" name={loading ? 'Loading...' : 'Login'}/>
             </div>
           </div>
         </form>

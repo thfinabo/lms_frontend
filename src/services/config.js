@@ -9,15 +9,15 @@ export class APIEndPoint{
   
     constructor() {
       // Creates an axios instance
+      axios.defaults.withCredentials = true;
       this.request = axios.create({
-        // withCredentials: true,
+        withCredentials: true,
         baseURL: this.apiEndpoint,
         headers: {
-          "Cache-Control": "no-cache",
+          'Cache-Control': 'no-cache',
           'Content-Type': 'application/json',
-        }
+        }  
       });
-      this.request.defaults.headers.common["Content-Type"] = "application/json";
   
       this.request.interceptors.request.use(
         function (request) {

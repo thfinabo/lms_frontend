@@ -2,8 +2,7 @@ import styles from './styles.module.css';
 import { useState } from "react"
 import AdminForgotPassword from '../../pages/Admin/ForgotPassword';
 
-const AdminLayout = ({children}) => {
-    const [resetPassword, setResetPassword] = useState(true)
+const AdminLayout = ({children,resetPassword,setResetPassword}) => {
   return (
     <div className={styles.admin_container}>
         <div className={styles.admin_wrapper}>
@@ -13,7 +12,7 @@ const AdminLayout = ({children}) => {
         </div>
         {
             resetPassword ? 
-            <AdminForgotPassword />
+            <AdminForgotPassword setResetPassword={setResetPassword}/>
             : <></>
         }
     </div>

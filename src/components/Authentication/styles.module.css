@@ -19,8 +19,9 @@
     top: 50%;
     left: 50%;
     position: absolute;
-    overflow: scroll;
     overflow-x:hidden;
+    overflow: scroll !important;
+    max-height: 100%;
 }
 
 /* Admin Styles */
@@ -29,18 +30,17 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    top: 50%;
+    /* top: 50%;
     left: 20%;
-    transform: translate(-35%,-50%);
+    transform: translate(-35%,-50%); */
 }
 .admin_container .admin_wrapper{
     background-image: url('/public/admin-auth-cover.png');
+    background-position: 20% 100%;
     background-repeat: no-repeat;
     height: 100%;
     position: absolute;
     width: 100%;
-    background-position: bottom;
-
 }
 .admin_container .admin_wrapper .admin_card{
     background-color: white;
@@ -50,17 +50,17 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 30px;
+    right: 120px;
     width: 100%;
     border-radius: 10px;
 }
 
-@media screen and (max-width:1025px) {
+/* @media screen and (max-width:1025px) {
     .admin_container{
         left: 50%;
         transform: translate(-50%,-50%);
     }
-}
+} */
 
 @media screen and (max-width:650px) {
     .admin_container .admin_wrapper{

@@ -12,3 +12,10 @@ export const signUpValidator = object().shape({
     lastName: string().trim().required('Last Name Required'),
     email: string().trim().email().required(),
 });
+
+export const loginValidator = object().shape({
+    password: string()
+        .matches(passwordRegex, passwordPhrase)
+        .required('Fill in your password'),
+    email: string().trim().email().required(),
+});

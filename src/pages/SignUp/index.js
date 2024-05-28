@@ -32,17 +32,6 @@ const SignUp = () => {
             }else{
                 toast.error('Something went wrong')
             }
-
-            // const res = await fetch('https://lms-backend-5t54.onrender.com/api/v1/signup',{
-            //     body:JSON.stringify(data),
-            //     method:"POST",
-            //     headers: {
-            //         Accept: "application/json",
-            //         "Content-Type": "application/json",
-            //     },
-
-            // });
-            // console.log(res)
         }catch(err){
             console.log(err?.message)
         }
@@ -60,22 +49,22 @@ const SignUp = () => {
                         <div className='py-2'>
                             <p className='pb-1'>Email</p>
                             <TextInput name={'email'} icon={true} value={email} placeholder={'Email'} Icon={HiOutlineMail} onChange={(e)=>handleValueChange('email', e.target.value)}/>
-                            {errors?.email && <p>{errors?.email?.message}</p>}
+                            {errors?.email && <p className='text-red-500 text-[12px]'>{errors?.email?.message}</p>}
                         </div>
                         <div className='py-2'>
                             <p className='pb-1'>First Name</p>
                             <TextInput name={'firstName'} value={firstName} placeholder={'First Name'} Icon={HiOutlineMail} onChange={(e)=>handleValueChange('firstName', e.target.value)}/>
-                            {errors?.firstName && <p>{errors?.firstName?.message}</p>}
+                            {errors?.firstName && <p className='text-red-500 text-[12px]'>{errors?.firstName?.message}</p>}
                         </div>
                         <div className='py-2'>
                             <p className='pb-1'>Last Name</p>
                             <TextInput name={'lastName'} value={lastName} placeholder={'Last Name'} onChange={(e)=>handleValueChange('lastName', e.target.value)}/>
-                            {errors?.lastName && <p>{errors?.lastName?.message}</p>}
+                            {errors?.lastName && <p className='text-red-500 text-[12px]'>{errors?.lastName?.message}</p>}
                         </div>
                         <div className='py-2'>
                             <p className='pb-1'>Password</p>
                             <PasswordInput name={'password'} value={password} placeholder={'Password'} onChange={(e)=>handleValueChange('password',e.target.value)}/>
-                            {errors?.password && <p>{errors?.password?.message}</p>}
+                            {errors?.password && <p className='text-red-500 text-[12px]'>{errors?.password?.message}</p>}
                         </div>
                         <div className='py-3'>
                             <input type='checkbox' name="checkbox" id='checkbox'/>
