@@ -19,3 +19,16 @@ export const loginValidator = object().shape({
         .required('Fill in your password'),
     email: string().trim().email().required(),
 });
+
+export const changePasswordValidator = object().shape({
+    email: string().trim().email().required('Email is required'),
+});
+
+export const adminRegisterValidator = object().shape({
+    password: string()
+        .matches(passwordRegex, passwordPhrase)
+        .required('Fill in your password'),
+    firstName: string().trim().required('First Name Required'),
+    lastName: string().trim().required('Last Name Required'),
+    email: string().trim().email().required(),
+});

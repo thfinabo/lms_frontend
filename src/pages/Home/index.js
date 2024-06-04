@@ -1,22 +1,22 @@
-import { toast } from 'react-toastify';
-import Button from '../../components/ReusableButton/Button';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import DashboardLayout from '../../components/Dashboard/Layout';
+import EmptyPage from '../../components/Dashboard/EmptyPage';
+import OverviewPage from '../../components/Dashboard/OverviewPage';
 
 const Home = () => {
-  const navigate = useNavigate()
-  const handleLogOut = () =>{
-    Cookies.remove('authToken');
-    toast.success("User successfully logged out");
-    navigate('/login')
-  }
+  const EmptyCart = false;
   return (
-    <div>
-      <div>Welcome to the Home Page - Authenticated User</div>
-      <div onClick={handleLogOut}>
-        <Button type={'button'} name={'Log Out'}/>
-      </div>
-    </div>
+    <DashboardLayout>
+      {
+        EmptyCart ?
+        <div>
+          <EmptyPage />
+        </div>
+        :
+        <div>
+          <OverviewPage />
+        </div>
+      }
+    </DashboardLayout>
   )
 }
 

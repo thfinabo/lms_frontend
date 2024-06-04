@@ -6,6 +6,7 @@ const RequireAuth = () => {
     const isAuthenticated = useContext(AuthContext);
     const [isMounted, setIsMounted] = useState(false);
 
+
     useEffect(() => {
       setIsMounted(true);
   }, []);

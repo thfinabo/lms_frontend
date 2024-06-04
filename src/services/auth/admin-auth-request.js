@@ -1,15 +1,14 @@
 import { toast } from "react-toastify";
 import { APIEndPoint } from "../config";
 
-export class UserAPIRequestImpl extends APIEndPoint{
-    signUpEndpoint = '/signup';
-    loginEndPoint = '/login';
-    forgotPasswordEndpoint = '/forgot-password';
+export class AdminAPIRequestImpl extends APIEndPoint{
+    registerEndpoint = '/admin/register';
+    loginEndPoint = '/admin/login';
 
-    async signUp(data) {
+    async register(data) {
         try{
             const { data: response } = await this.request.post(
-                `${this.signUpEndpoint}`, data,
+                `${this.registerEndpoint}`, data,
             );
             return response;
         }catch(err){
@@ -29,18 +28,6 @@ export class UserAPIRequestImpl extends APIEndPoint{
             console.log(err)
         }
     }
-
-    async forgotPassword(data) {
-        try{
-            const { data: response } = await this.request.post(
-                `${this.forgotPasswordEndpoint}`, data,
-            );
-            return response;
-        }catch(err){
-            toast.error(err?.response?.data?.message)
-            console.log(err)
-        }
-    }
 }
 
-export const authRequest = new UserAPIRequestImpl()
+export const adminAuthRequest = new AdminAPIRequestImpl()

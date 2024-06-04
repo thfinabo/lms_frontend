@@ -6,7 +6,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook } from 'react-icons/fa';
 import { RiAppleFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import SignUpHook from '../../hooks/SignUpHook';
 import { authRequest } from '../../services/auth/auth-request';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,6 +15,8 @@ import { useState } from 'react';
 const SignUp = () => {
     const [loading, setLoading] = useState(false)
     const {email, password, firstName, lastName, errors, handleSubmit, handleValueChange} = SignUpHook();
+
+    const navigate = useNavigate();
 
     const onSubmit = async (values) =>{
         try{
@@ -29,6 +31,11 @@ const SignUp = () => {
             setLoading(false);
             if(res?.success){
                 toast.success(res?.message)
+                navigate('/verify-email')
+
+                setTimeout(()=>{
+                    navigate('/login')
+                },1500)
             }else{
                 toast.error('Something went wrong')
             }

@@ -9,11 +9,17 @@ import { RiAppleFill } from "react-icons/ri";
 import { HiOutlineMail } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 import LoginHook from '../../hooks/LoginHook';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import { authRequest } from '../../services/auth/auth-request';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import { AuthContext } from '../../AuthProvider';
+import { useContext, useEffect } from 'react';
 
 const LoginPage = () => {
+  const isAuthenticated = useContext(AuthContext);
+
+  console.log(isAuthenticated)
+
   const {email, password, handleSubmit, handleValueChange, errors} = LoginHook();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -33,7 +39,6 @@ const LoginPage = () => {
         const authToken = res?.data?.authToken
         Cookies.set('authToken',authToken,{expires: 1});
         toast.success(res?.message);
-        navigate('/');
       }else{
           toast.error('Something went wrong')
       }
@@ -42,8 +47,15 @@ const LoginPage = () => {
     }
   }
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
+
   return (
     <div>
+      <ToastContainer />
       <AuthLayout>
         <div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -61,12 +73,12 @@ const LoginPage = () => {
               <p className='pb-1'>Password</p>
               <PasswordInput name={'Password'} value={password} placeholder={'Password'} onChange={(e)=>handleValueChange('password',e.target.value)}/>
             </div>
-            <div className='flex justify-between pt-2'>
+            <div className='flex justify-between pt-2 flex-col sm:flex-row'>
               <div>
                 <input type='checkbox' name="checkbox" id='checkbox'/>
                 <label className='pl-2 cursor-pointer' htmlFor='checkbox'>Remember me</label>
               </div>
-              <p>Forgot password?</p>
+              <p className='pt-2 sm:pt-0 hover:text-red-500 cursor-pointer inline' onClick={()=>navigate('/forgot-password')}>Forgot password?</p>
             </div>
             <div className='py-3 pt-8'>
               <Button type={'submit'} className="bg-primaryGreen text-white w-full py-3 rounded-md font-semibold" name={loading ? 'Loading...' : 'Login'}/>

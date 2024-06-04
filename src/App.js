@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import RequireAuth from './components/RequireAuth';
 import Login from './pages/Admin/Login';
 import { Navigate } from 'react-router-dom';
+import VerifyEmail from './pages/VerifyEmail';
+import Register from './pages/Admin/Register';
 
 function App() {
 
@@ -18,8 +20,10 @@ function App() {
           <Route path="/sign-up" element={<SignUp />}/>
           <Route path="/forgot-password" element={<ForgotPassword />}/>
           <Route path="/forgot-password/change-password" element={<ChangePassword />}/>
+          <Route path="/verify-email" element={<VerifyEmail />}/>
 
           <Route path='/admin/login' element={<Login />}/>
+          <Route path='/admin/register' element={<Register />}/>
         {/* Protected Routes */}
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />}/>
